@@ -31,13 +31,23 @@
     }
   };
   $(document).ready(function () {
-    const toggleMonth = () => {
+    const toggleMonth = (dd, mm, yy) => {
       $(".num").mouseenter((e) => {
         let _self = e.target,
+          appeared = 0,
+          lastCycle = 0,
           num = $(_self).attr("data-num"),
-          // idMon = $(_self).parents(".listDate")[0].id,
+          idDays = $(`.info .num[data-num="${num}"]`),
           sumNum = $(`.statisticList .num[data-num="${num}"]`)[0].innerHTML;
         sumNum = sumNum ? sumNum : 0;
+        $(idDays).each(function (i, item) {
+          var val = $(item).html();
+          var currentDay = $(item).parents(".info").attr("data-day");
+          var curDayIdex = currentDay == `${dd}-${mm}-${yy}` ? i : 0;
+          if (val) appeared = i;
+          if (currentDay == `${dd}-${mm}-${yy}`)
+            if (curDayIdex > 0) lastCycle = curDayIdex - appeared;
+        });
         let positLeft = $(_self).position().left,
           milestone = $("li#statistical.dayInfo").position().left - 150;
         if (positLeft >= milestone) {
@@ -46,7 +56,7 @@
         $(`.num[data-num="${num}"]`).css("background-color", "#beffd0");
         $(_self)[0].style.setProperty(
           "--ct",
-          `"(${num}) ⭐ Tần Xuất: ${sumNum}"`
+          `"(${num}) ⭐ Tần Xuất: ${sumNum} Gan: (${lastCycle}) ngày!"`
         );
         $(_self).addClass("active");
       });
@@ -95,7 +105,7 @@
       showValue(mm, sumDays);
       createStatistic($(".listDate"));
       frequencyStatistical();
-      toggleMonth();
+      toggleMonth(dd, mm, yy);
     };
     showDaysInMonth(curDate.dd, curDate.mm, curDate.yy);
 
@@ -121,6 +131,7 @@
         $(this).find(".mon")[0].remove();
         frequencyStatistical();
       }
+      toggleMonth(curDate.dd, curDate.mm, curDate.yy);
     });
 
     function showValue(candidates, sumDays) {
@@ -167,7 +178,7 @@
       }
     }
 
-    var invest = [115, 115, 115];
+    var invest = [115, 115, 115, 450];
     var income = [];
     const surplusValue = (() => {
       let totalCost = 0,
@@ -802,8 +813,12 @@ var dateResult = [
       "08-06-2023":
         "05, 03,	18, 13, 11, 15,	24, 25, 26, 24,	37, 35, 34, 31,	45, 44, 48,	59, 54,	66,	77, 72, 77,	81, 86, 88,	92",
     },
+    {
+      gdb: "88",
+      "09-06-2023":
+        "63, 25, 00, 40, 76, 83, 66, 98, 88, 91, 21, 49, 86, 00, 89, 81, 70, 98, 26, 46, 45, 43, 84, 68, 82, 38",
+    },
 
-    { gdb: "", "09-06-2023": "" },
     { gdb: "", "10-06-2023": "" },
     { gdb: "", "11-06-2023": "" },
     { gdb: "", "12-06-2023": "" },

@@ -168,11 +168,11 @@ span.closeMonth:hover {
   align-items: flex-start;
   justify-content: center;
   position: absolute;
-  top: -34px;
+  top: -56px;
   left: 50%;
   transform: translateX(var(--tr_slate));
   width: 216px;
-  height: 36px;
+  height: auto;
   color: crimson;
   font-size: 22px !important;
   border-radius: 6px;
