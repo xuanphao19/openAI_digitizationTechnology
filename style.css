@@ -135,7 +135,11 @@ h1.title {
   background: #eee;
   border: 1px solid #565454;
 }
-.mon > span {
+
+.lotteryPred,
+.lotteryPredRs,
+.mon span {
+  display: inline-block;
   color: #ee7f06;
   font-size: 28px;
   padding: 12px;
@@ -201,11 +205,12 @@ span.closeMonth:hover {
   align-items: flex-start;
   justify-content: center;
   position: absolute;
-  top: -56px;
+  top: -62px;
   left: 50%;
   transform: translateX(var(--tr_slate));
   width: 216px;
   height: auto;
+  padding: 6px 10px;
   color: crimson;
   font-size: 22px !important;
   border-radius: 6px;
@@ -307,6 +312,7 @@ li {
     border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
 }
 
+.lotteryPredRs,
 .numResults {
   display: flex;
   align-items: center;
@@ -323,13 +329,30 @@ li {
   transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out,
     border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
 }
+
+.mon .monSpan .lotteryPredRs {
+  width: 52px;
+  height: 52px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #f9ff0d;
+  animation: identifier 2s infinite linear;
+  display: none;
+}
+.lotteryPred {
+  padding: 12px 18px !important;
+}
+
 .topPred .numResults {
   animation: identifier 2s infinite linear;
   animation-delay: calc(-1s * (1 / 10) * var(--delay));
 }
+
+.lotteryPred:hover,
 .rollNumbers:hover,
 .topPred:hover {
   background: #fefefe;
+  cursor: pointer;
 }
 
 .rollNumbers:hover .numResults,
@@ -338,9 +361,9 @@ li {
 }
 .rollNumbers .numResults:last-child,
 .topPred .numResults:last-child {
-  background: #ff4747 !important;
-  color: #f9ff0d !important;
-  text-shadow: -1px 1px 2px rgb(15, 35, 255);
+  background: #ff3667 !important;
+  color: #f9ff0d;
+  text-shadow: -1px 1px 2px rgb(0, 18, 211);
 }
 
 .topPred .numResults:not(:last-child):hover,

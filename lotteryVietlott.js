@@ -1,5 +1,12 @@
+var traditionalLottery = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+  22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+  41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+  60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
+  79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
+  98, 99,
+];
 // Xổ số Vietlott:
-
 var Power6_55 = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
@@ -64,9 +71,9 @@ function showLotteryVietlott() {
 }
 
 let randomNum = [];
-let createNumber = function (arrInit) {
+let createNumber = function (arrInit, num) {
   var length = arrInit.length;
-  if (length > 0 && randomNum.length < 6) {
+  if (length > 0 && randomNum.length < num) {
     let n = Math.floor(Math.random() * length) + 1;
     let check = randomNum.includes(n);
     if (!check) {
@@ -80,7 +87,7 @@ let createNumber = function (arrInit) {
         }
       }
     }
-    createNumber(arrInit);
+    createNumber(arrInit, 6);
   }
   return randomNum;
 };
@@ -150,43 +157,43 @@ function renderNumber(arrNum) {
   showRandomRepNum(randomRepNum);
 }
 
-var ele = $(".topPred");
+// var ele = $(".topPred");
+const findIntersection = function (arrInit, nBer = 1001) {
+  arr = arrInit;
+  sumRandomNum = [];
+  for (let i = 0; i <= nBer; i++) {
+    randomNum = [];
+    createNumber(arr, 6);
+    sumRandomNum.push(
+      randomNum.sort(function (a, b) {
+        return a - b;
+      })
+    );
+  }
+  /* ========================= */
+  var all = sumRandomNum.reduce(function (a, b) {
+    return a.concat(b);
+  });
+  for (var i = 0, obj = {}, l = all.length; i < l; i++) {
+    var key = all[i];
+    if (!obj[key]) obj[key] = 0;
+    obj[key]++;
+  }
+
+  var value = 0,
+    repNum = 0;
+  Object.keys(obj).filter(function (el) {
+    if (obj[el] > value) value = obj[el];
+    if (obj[el] === value) repNum = el;
+  });
+  // console.log(all, obj, "kq:", repNum);
+  return repNum;
+};
+
 function createNumPredict(params) {
-  const findIntersection = function (arrInit) {
-    arr = arrInit;
-    sumRandomNum = [];
-    for (let i = 0; i <= 3333; i++) {
-      randomNum = [];
-      createNumber(arr);
-      sumRandomNum.push(
-        randomNum.sort(function (a, b) {
-          return a - b;
-        })
-      );
-    }
-    /* ========================= */
-
-    var all = sumRandomNum.reduce(function (a, b) {
-      return a.concat(b);
-    });
-    for (var i = 0, obj = {}, l = all.length; i < l; i++) {
-      var key = all[i];
-      if (!obj[key]) obj[key] = 0;
-      obj[key]++;
-    }
-    var value = 0,
-      repNum = 0;
-    Object.keys(obj).filter(function (el) {
-      if (obj[el] > value) value = obj[el];
-      if (obj[el] === value) repNum = el;
-    });
-    /* =============== */
-    return repNum;
-  };
-
+  /* =============== */
   showSuggestedResults(randomNum);
-
-  if (randomRepNum == [] || randomRepNum.length < 7) {
+  if (randomRepNum == [] || randomRepNum.length < 10) {
     let n = findIntersection(params);
     let check = randomRepNum.includes(n);
     if (!check) {
@@ -208,5 +215,12 @@ function createNumPredict(params) {
     return a - b;
   });
 }
+$(".selectMonWrap").on("mouseleave", function () {
+  $(".listMonth").removeClass("active");
+});
 
-["1", "17", "18", "23", "32", "40", "48"];
+const traditionalLotteryRs = function (ele, obj) {
+  var resultTT = findIntersection(obj, 5000);
+  resultTT = resultTT < 10 ? `0${resultTT}` : resultTT;
+  $(ele).html(resultTT);
+};

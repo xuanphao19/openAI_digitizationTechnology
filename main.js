@@ -44,9 +44,9 @@
           var val = $(item).html();
           var currentDay = $(item).parents(".info").attr("data-day");
           var curDayIdex = currentDay == `${dd}-${mm}-${yy}` ? i : 0;
-          if (val) appeared = i;
+          if (val) appeared = i + 1;
           if (currentDay == `${dd}-${mm}-${yy}`)
-            if (curDayIdex > 0) lastCycle = curDayIdex - appeared;
+            if (curDayIdex > 0) lastCycle = curDayIdex + 1 - appeared;
         });
         let positLeft = $(_self).position().left,
           milestone = $("li#statistical.dayInfo").position().left - 150;
@@ -89,7 +89,11 @@
         sumDays = getDaysInMonth(mm, yy);
       fullDates += `
         <div  class="mon flex" data-mon="${sumDays}">
+          <div class="monSpan">
             <span class="month${mm}">(Ngày ${dd} Tháng ${mm}/${yy})</span>
+            <span class="lotteryPred" title="Click Me!">Dự đoán đề về 👉</span>
+            <span class="lotteryPredRs">00</span>
+          </div>
             <span class="preMonth" data-current-mon="${mm}">◁ Pre</span>
             <div class="wrapDate">
               <ul class="listDate" id = "month${mm}_${yy}">
@@ -112,7 +116,11 @@
     $(".listMonth").on("click", (e) => {
       $(".listMonth").toggleClass("active");
       let month = $(e.target).attr(`data-mon-select`);
-      if (month) showDaysInMonth("", month);
+      if (month === curDate.mm) {
+        return;
+      } else {
+        if (month) showDaysInMonth("", month);
+      }
     });
     $(".result").on("click", function (e) {
       if (e.target.classList[0] === "preMonth") {
@@ -192,6 +200,13 @@
       return `${totalRevenue - totalCost}k`;
     })();
     $(".excess").text(surplusValue);
+
+    /*  */
+
+    $(".lotteryPred").on("click", function (e) {
+      $(".lotteryPredRs").show("slow").css("display", "inline-flex");
+      traditionalLotteryRs($(".lotteryPredRs"), traditionalLottery);
+    });
   });
 })(jQuery);
 
@@ -818,13 +833,17 @@ var dateResult = [
       "09-06-2023":
         "63, 25, 00, 40, 76, 83, 66, 98, 88, 91, 21, 49, 86, 00, 89, 81, 70, 98, 26, 46, 45, 43, 84, 68, 82, 38",
     },
-
     {
       gdb: "36",
       "10-06-2023":
         "02, 07, 02,	14, 16,	28, 22,	36, 37, 38, 33, 36, 39,	40, 47, 45, 44,	54, 52, 58, 50,	63, 68,	84, 81, 88,	95",
     },
-    { gdb: "", "11-06-2023": "" },
+
+    {
+      gdb: "60",
+      "11-06-2023":
+        "04, 20, 25, 21, 27, 21,	34, 39,	43, 48, 49, 45, 43,	58, 57, 54, 56, 57,	68,60, 63, 67, 64,	73, 78,	84,	96",
+    },
     { gdb: "", "12-06-2023": "" },
     { gdb: "", "13-06-2023": "" },
     { gdb: "", "14-06-2023": "" },
