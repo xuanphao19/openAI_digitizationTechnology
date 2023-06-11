@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -21,10 +21,15 @@
   <body>
     <div class="container">
       <div class="titleWrap flex">
-        <h1 class="title flex align-items-center justify-center">
-          Thống kê kết quả Xổ số, lô tô, số đề, cờ bạc!
-          <!-- openAl digitization technology -->
-        </h1>
+        <div class="titleGroup">
+          <h1 class="title flex align-items-center justify-center">
+            Thống kê kết quả lô đề, cờ bạc!
+          </h1>
+          <ul class="gameList">
+            <li class="elective lottery">Xổ số Vietlott</li>
+            <li class="traditional lottery">Xổ số truyền thống</li>
+          </ul>
+        </div>
         <div class="listMonth">
           Chọn tháng
           <span>
@@ -60,10 +65,13 @@
         </div>
         <div class="excess"></div>
       </div>
-      <div class="result flex"></div>
+      <div class="result flex">
+
+      </div>
     </div>
     <!-- ============ -->
     <script src="./jquery_v1.8.2.min.js"></script>
+    <script src="./lotteryVietlott.js"></script>
     <script src="./main.js"></script>
   </body>
 </html>
