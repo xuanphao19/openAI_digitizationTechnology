@@ -440,6 +440,13 @@ li {
   color: #4690da;
   border: 1px solid #4690da;
 }
+
+html,
+body,
+.container {
+  overflow: auto;
+}
+
 /* .num:first-child,
 .num:nth-child(10n + 11) {
   background: #ffcc9638 !important;

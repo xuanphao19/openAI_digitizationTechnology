@@ -221,6 +221,12 @@
         });
         window.clearTimeout(timeOut);
       }, 2500);
+ 
+      var scrollTo = $(".lotteryPredRs")
+        .css("background", "#9f3")
+        .position().left;
+      console.log(scrollTo);
+      $(".container").animate({ scrollLeft: scrollTo }, 500);
     });
   });
 
@@ -229,6 +235,9 @@
     if (!check) $(".listMonth.active").removeClass("active");
   });
 })(jQuery);
+
+// Chú ý: phần tử muốn di chuyển phải có CSS  overflow: auto;
+//  $("html, body").animate({ scrollTop: $(el).offset().top - 50 }, 500);
 
 var dateResult = [
   [
