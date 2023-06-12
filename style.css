@@ -331,12 +331,11 @@ li {
 }
 
 .mon .monSpan .lotteryPredRs {
-  width: 52px;
-  height: 52px;
+  width: 52px !important;
+  height: 52px !important;
   font-size: 28px;
   font-weight: 600;
-  color: #f9ff0d;
-  animation: identifier 2s infinite linear;
+  color: #c16af8;
   display: none;
 }
 .lotteryPred {

@@ -91,7 +91,7 @@
         <div  class="mon flex" data-mon="${sumDays}">
           <div class="monSpan">
             <span class="month${mm}">(Ngày ${dd} Tháng ${mm}/${yy})</span>
-            <span class="lotteryPred" title="Click Me!">Dự đoán đề về 👉</span>
+            <span class="lotteryPred" title="Click Me!">Dự đoán kết quả 👉</span>
             <span class="lotteryPredRs">00</span>
           </div>
             <span class="preMonth" data-current-mon="${mm}">◁ Pre</span>
@@ -204,9 +204,29 @@
     /*  */
 
     $(".lotteryPred").on("click", function (e) {
+      window.clearInterval(count);
       $(".lotteryPredRs").show("slow").css("display", "inline-flex");
-      traditionalLotteryRs($(".lotteryPredRs"), traditionalLottery);
+      var sec = Math.floor(Math.random() * 100);
+      var count = setInterval(function () {
+        $("span.lotteryPredRs").html(sec);
+        sec--;
+        if (sec < 10) sec = "0" + sec;
+        if (sec == "00") sec = 100;
+      }, 5);
+      var timeOut = setTimeout(() => {
+        window.clearInterval(count);
+        traditionalLotteryRs($(".lotteryPredRs"), traditionalLottery);
+        $(".lotteryPredRs").css({
+          animation: "identifier 0.8s infinite linear",
+        });
+        window.clearTimeout(timeOut);
+      }, 2500);
     });
+  });
+
+  $(document).on("mousedown", function (e) {
+    let check = $.contains($(".listMonth")[0], $(e.target)[0]);
+    if (!check) $(".listMonth.active").removeClass("active");
   });
 })(jQuery);
 

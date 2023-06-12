@@ -157,13 +157,12 @@ function renderNumber(arrNum) {
   showRandomRepNum(randomRepNum);
 }
 
-// var ele = $(".topPred");
-const findIntersection = function (arrInit, nBer = 1001) {
+const findIntersection = function (arrInit, nBer = 1001, nm = 6) {
   arr = arrInit;
   sumRandomNum = [];
   for (let i = 0; i <= nBer; i++) {
     randomNum = [];
-    createNumber(arr, 6);
+    createNumber(arr, nm);
     sumRandomNum.push(
       randomNum.sort(function (a, b) {
         return a - b;
@@ -183,10 +182,21 @@ const findIntersection = function (arrInit, nBer = 1001) {
   var value = 0,
     repNum = 0;
   Object.keys(obj).filter(function (el) {
-    if (obj[el] > value) value = obj[el];
-    if (obj[el] === value) repNum = el;
+    value = obj[el] > value ? obj[el] : value;
+    repNum = obj[el] === value ? el : repNum;
   });
-  // console.log(all, obj, "kq:", repNum);
+  /* ===== */
+  // console.log(obj, "kq:", repNum);
+
+  /* ===================================== */
+  // create a map of occurrences // Ok!
+  const result = [
+    ...all.reduce((r, n) => r.set(n, (r.get(n) || 0) + 1), new Map()),
+  ].reduce((r, v) => (v[1] < r[1] ? v : r))[0];
+  // get the the item that appear less times
+  console.log(repNum, "/", result);
+  /* ===================================== */
+
   return repNum;
 };
 
@@ -220,7 +230,14 @@ $(".selectMonWrap").on("mouseleave", function () {
 });
 
 const traditionalLotteryRs = function (ele, obj) {
-  var resultTT = findIntersection(obj, 5000);
+  var resultTT = findIntersection(obj, 5000, 27);
   resultTT = resultTT < 10 ? `0${resultTT}` : resultTT;
   $(ele).html(resultTT);
 };
+/*
+Clicking đích danh phần tử cần lựa chọn! Ok hay!
+(Click trên tài liệu và tìm phần tử có selector ở đối số thứ 3 và bind click handler)
+$(document).on('click', 'h2.general_Click', function() {
+        $(this).next().toggle('slow');
+    });
+*/
