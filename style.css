@@ -447,9 +447,140 @@ body,
   overflow: auto;
 }
 
-/* .num:first-child,
-.num:nth-child(10n + 11) {
-  background: #ffcc9638 !important;
-} */
+.topPred {
+  cursor: default !important;
+}
+.lotteryPred {
+  cursor: help !important;
+}
+span.numResults {
+  cursor: help;
+}
+
+.predictOutcome {
+  position: fixed;
+  inset: 20% 25% auto 25%;
+  width: 50% !important;
+  height: 60%;
+  background: #eee;
+  border-radius: 12px;
+  box-shadow: -2px 2px 10px 1px #c16af8;
+  z-index: 99999;
+  display: none;
+}
+.table-result {
+  text-align: center;
+  font-family: arial;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin-top: 22px;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+.table-result tr:nth-of-type(2n) {
+  background-color: #f0f8ff;
+}
+.table-result th {
+  font-weight: 400;
+  font-size: 16px;
+}
+.prizeCode {
+  width: 90%;
+}
+
+.name-prize,
+.prizeCode {
+  border-top: none;
+}
+.prizeCode .close {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 22px 26px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.prizeCode .close:hover {
+  background: #dddfe2;
+  opacity: 0.8;
+}
+table td,
+table th {
+  padding: 3px;
+  border: solid 1px #dddfe2;
+}
+.code-DB6 {
+  display: inline-flex;
+  width: 10.5%;
+  height: 40px;
+  line-height: 40px;
+  color: #ed1c25;
+  font-weight: 700;
+  font-size: 20px;
+}
+.special {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 34px;
+  font-weight: 700;
+  color: #ed1c25;
+}
+.prizes {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.tdContent,
+.prize {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-weight: 700;
+  font-size: 34px;
+}
+.prize {
+  width: 100%;
+  height: 100%;
+  padding: 8px 36px;
+  box-shadow: -1px 0 0 0.5px #dddfe2;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+}
+.prize2 {
+  width: 50%;
+}
+.prize6,
+.prize5,
+.prize3 {
+  width: 33%;
+}
+.prize7,
+.prize4 {
+  width: 25%;
+}
+.prize0,
+tr:last-child {
+  color: #ed1c25;
+}
+td {
+  font-weight: 500;
+  font-size: 24px;
+}
+.prize:hover {
+  opacity: 0.8;
+  background: #ffcc96ab;
+}
 
 /* Xuyên thấu background bằng isolation: isolate; (Thẻ con có z-index: -1; thẻ cha có isolation: isolate; ==> sẽ nhìn thấy thẻ con */
