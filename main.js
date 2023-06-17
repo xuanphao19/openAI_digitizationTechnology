@@ -205,52 +205,75 @@
     $(".excess").text(surplusValue);
 
     /*  */
+    var canDial = true;
+    let loTo = [];
+    let soDe = [];
 
-    function openTraditionalLotteryPrizes(ele, p) {
+    function openTraditionalLotteryPrizes(ele, p, i) {
+      canDial = false;
+      var j = i + 1,
+        t = function (a, b) {
+          return b
+            ? Math.floor(Math.random() * (a - b) + b)
+            : Math.floor(Math.random() * a);
+        };
       window.clearInterval(countSec);
       $(".lotteryPredRs").show("slow").css("display", "inline-flex");
+      var lo = 0;
       var countSec = setInterval(function () {
-        var r1 = Math.floor(Math.random() * 9),
-          r2 = Math.floor(Math.random() * 9),
-          r3 = Math.floor(Math.random() * 9),
-          r4 = Math.floor(Math.random() * 9),
-          r5 = Math.floor(Math.random() * 9);
         let pr;
         switch (p) {
           case "p2":
-            pr = `${r4}${r5}`;
+            pr = `${t(9)}${t(9)}`;
+            lo = pr.slice(0);
             break;
           case "p3":
-            pr = `${r3}${r4}${r5}`;
+            pr = `${t(9)}${t(9)}${t(9)}`;
+            lo = pr.slice(1);
             break;
           case "p4":
-            pr = `${r2}${r3}${r4}${r5}`;
+            pr = `${t(9)}${t(9)}${t(9)}${t(9)}`;
+            lo = pr.slice(2);
             break;
           case "p5":
           case "special":
-            pr = `${r1}${r2}${r3}${r4}${r5}`;
+            pr = `${t(9)}${t(9)}${t(9)}${t(9)}${t(9)}`;
+            lo = pr.slice(3);
             break;
           default:
             alert("Bạn cần lựa chọn theo thứ tự các giải!");
             break;
         }
+
         $(ele).html(pr).css("background", "chartreuse");
-        $(".lotteryPredRs").html(`${r4}${r5}`);
-      }, 60);
+        $(".lotteryPredRs").html(lo);
+      }, t(17, 6));
+
       var timeOut = setTimeout(() => {
         window.clearInterval(countSec);
         $(".lotteryPredRs").css({
           animation: "identifier 0.8s infinite linear",
         });
+        console.log();
+        j = j === 27 ? 0 : j;
+        $(".prize")[j].style.background = "chartreuse";
         $(ele).css("background", "");
+        var timeCanDial = setTimeout(() => {
+          canDial = true;
+          window.clearTimeout(timeCanDial);
+        }, 1000);
+        loTo.push(lo);
+        console.log(loTo.length);
+        if (loTo.length === 27) soDe.push(loTo.slice(26));
         window.clearTimeout(timeOut);
-      }, 5000);
+      }, t(5000, 4000));
     }
     /* =================== */
 
     $(".result").on("click", function (e) {
       var eCl = e.target.className === "lotteryPred" ? true : false;
       var eId = $(e.target).parent()[0].id === curDate.mm ? true : false;
+      $(".prize")[1].style.background = "chartreuse";
       if (eCl && eId) {
         $(".predictOutcome").show(1000);
         var scrollTo = $(".lotteryPred")
@@ -260,34 +283,59 @@
         $(".container").animate({ scrollLeft: scrollTo }, 500);
       }
     });
-    let k = 0;
+
     $(".predictOutcome").on("click", function (e) {
       let _shelf = e.target,
         prize = $(_shelf).attr("data-prize"),
         prizeIndex = $(".prize").index(_shelf);
+      if (!canDial) return;
       const predictOutcome = (function (el, data) {
         if (el.className === "close") {
           $(".predictOutcome").hide(800);
           return;
         }
-        if (k + 1 === prizeIndex) {
-          openTraditionalLotteryPrizes(el, data);
+        let k = loTo.length;
+        if (k + 1 === prizeIndex && canDial) {
+          openTraditionalLotteryPrizes(el, data, prizeIndex);
           k++;
-        } else if (k === 26 && prize === "special") {
-          openTraditionalLotteryPrizes(el, data);
+        } else if (k === 26 && prize === "special" && canDial) {
+          openTraditionalLotteryPrizes(el, data, prizeIndex);
           k = 0;
+        } else if (loTo.length === 27) {
+          $(".prize")[1].style.background = "";
+          swal(
+            "Hết lượt quay số dự thưởng!",
+            `Thống kê kết quả Dự đoán XSMB:
+
+            - Số đề: ${soDe}
+            - Lô tô: ${loTo.sort((a, b) => a - b)}
+
+            Chúc các bạn vui vẻ và May mắn!`
+          );
         } else {
-          alert(`
-          Bạn cần quay số theo thứ tự các giải:
-          Từ giải Nhất đến giải 7
-          Giải đặc biệt vui lòng quay cuối cùng!`);
+          swal(
+            "Chào mừng đến với Dự đoán XSMB!",
+            `Bạn cần quay số theo thứ tự các giải:
+            Từ giải Nhất đến giải 7
+            Giải đặc biệt vui lòng quay cuối cùng!`
+          );
         }
       })(_shelf, prize);
     });
   });
   $(document).on("mousedown", function (e) {
-    let check = $.contains($(".listMonth")[0], $(e.target)[0]);
-    if (!check) $(".listMonth.active").removeClass("active");
+    if ($(".listMonth.active")) {
+      let check = $.contains($(".listMonth")[0], $(e.target)[0]);
+      if (!check) $(".listMonth.active").removeClass("active");
+    }
+    if ($(".swal-overlay")[0]) {
+      if (
+        !$.contains($(".predictOutcome")[0], $(e.target)[0]) &&
+        !$.contains($(".swal-overlay")[0], $(e.target)[0]) &&
+        !$(e.target)[0] === $(".swal-overlay")[0]
+      )
+        $(".predictOutcome").hide(800);
+    }
   });
 })(jQuery);
 
@@ -947,7 +995,11 @@ var dateResult = [
       "15-06-2023":
         "08, 07, 09, 02, 07, 02, 01,	19,	20, 22,	30, 39, 35, 32,	49,	53, 55,	67, 66,	72, 74,	88, 84, 88,	93, 96, 97",
     },
-    { gdb: "", "16-06-2023": "" },
+    {
+      gdb: "61",
+      "16-06-2023":
+        "03, 06, 01,	16, 19, 18, 16,	25,	49, 45, 42, 45,	52,	61, 64, 68, 61,	70, 77, 74, 79,	88, 85, 87,	98, 98, 95",
+    },
     { gdb: "", "17-06-2023": "" },
     { gdb: "", "18-06-2023": "" },
     { gdb: "", "19-06-2023": "" },

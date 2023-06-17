@@ -581,5 +581,11 @@ td {
   opacity: 0.8;
   background: #ffcc96ab;
 }
-
+.swal-overlay {
+  z-index: 9999999999999;
+}
+.swal-text {
+  font-size: 22px;
+  color: #ff00a3;
+}
 /* Xuyên thấu background bằng isolation: isolate; (Thẻ con có z-index: -1; thẻ cha có isolation: isolate; ==> sẽ nhìn thấy thẻ con */
