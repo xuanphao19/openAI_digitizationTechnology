@@ -205,43 +205,42 @@
     $(".excess").text(surplusValue);
 
     /*  */
-    var canDial = true;
-    let loTo = [];
-    let soDe = [];
+    let loTo = [],
+      soDe = [],
+      canDial = true;
 
     function openTraditionalLotteryPrizes(ele, p, i) {
       canDial = false;
-      var j = i + 1,
+      let j = i + 1,
         t = function (a, b) {
           return b
             ? Math.floor(Math.random() * (a - b) + b)
             : Math.floor(Math.random() * a);
         };
       window.clearInterval(countSec);
-      $(".lotteryPredRs").show("slow").css("display", "inline-flex");
-      var lo = 0;
+      let lo = 0;
       var countSec = setInterval(function () {
         let pr;
         switch (p) {
           case "p2":
-            pr = `${t(9)}${t(9)}`;
+            pr = `${t(10)}${t(10)}`;
             lo = pr.slice(0);
             break;
           case "p3":
-            pr = `${t(9)}${t(9)}${t(9)}`;
+            pr = `${t(10)}${t(10)}${t(10)}`;
             lo = pr.slice(1);
             break;
           case "p4":
-            pr = `${t(9)}${t(9)}${t(9)}${t(9)}`;
+            pr = `${t(10)}${t(10)}${t(10)}${t(10)}`;
             lo = pr.slice(2);
             break;
           case "p5":
           case "special":
-            pr = `${t(9)}${t(9)}${t(9)}${t(9)}${t(9)}`;
+            pr = `${t(10)}${t(10)}${t(10)}${t(10)}${t(10)}`;
             lo = pr.slice(3);
             break;
           default:
-            alert("Bạn cần lựa chọn theo thứ tự các giải!");
+            alert("Bạn cần quay số theo thứ tự các giải!");
             break;
         }
 
@@ -249,34 +248,36 @@
         $(".lotteryPredRs").html(lo);
       }, t(17, 6));
 
-      var timeOut = setTimeout(() => {
+      var dialableTime = j === 1 ? 20000 : t(6000, 3000);
+      const timeOut = setTimeout(() => {
         window.clearInterval(countSec);
         $(".lotteryPredRs").css({
           animation: "identifier 0.8s infinite linear",
         });
-        console.log();
+
         j = j === 27 ? 0 : j;
         $(".prize")[j].style.background = "chartreuse";
         $(ele).css("background", "");
-        var timeCanDial = setTimeout(() => {
+        const dialingDelayTime = setTimeout(() => {
           canDial = true;
-          window.clearTimeout(timeCanDial);
+          window.clearTimeout(dialingDelayTime);
         }, 1000);
         loTo.push(lo);
-        console.log(loTo.length);
+        console.log(loTo);
         if (loTo.length === 27) soDe.push(loTo.slice(26));
         window.clearTimeout(timeOut);
-      }, t(5000, 4000));
+      }, dialableTime);
     }
     /* =================== */
 
     $(".result").on("click", function (e) {
-      var eCl = e.target.className === "lotteryPred" ? true : false;
-      var eId = $(e.target).parent()[0].id === curDate.mm ? true : false;
-      $(".prize")[1].style.background = "chartreuse";
+      const eCl = e.target.className === "lotteryPred" ? true : false;
+      const eId = $(e.target).parent()[0].id === curDate.mm ? true : false;
+      if (loTo.length === 0) $(".prize")[1].style.background = "chartreuse";
       if (eCl && eId) {
+        $(".lotteryPredRs").show();
         $(".predictOutcome").show(1000);
-        var scrollTo = $(".lotteryPred")
+        const scrollTo = $(".lotteryPred")
           .css("background", "rgb(216 243 254)")
           .position().left;
         // console.log(scrollTo);
