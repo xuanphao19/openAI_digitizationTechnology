@@ -468,6 +468,7 @@ span.numResults {
   z-index: 99999;
   display: none;
 }
+
 .table-result {
   text-align: center;
   font-family: arial;
@@ -587,5 +588,7 @@ td {
 .swal-text {
   font-size: 22px;
   color: #ff00a3;
+  user-select: text !important;
 }
+
 /* Xuyên thấu background bằng isolation: isolate; (Thẻ con có z-index: -1; thẻ cha có isolation: isolate; ==> sẽ nhìn thấy thẻ con */
