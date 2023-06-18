@@ -1,2 +1,2 @@
 # openAI_digitizationTechnology
-[<img src="https://github.com/xuanphao19/openAI_digitizationTechnology/assets/83102917/3b9f0b1b-bdc1-4f58-aa58-8e6aab312c6e" alt="">](https://xuanphao19.github.io/openAI_digitizationTechnology/)
+[<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/83102917/246650320-3b9f0b1b-bdc1-4f58-aa58-8e6aab312c6e.png" alt="">](https://xuanphao19.github.io/openAI_digitizationTechnology/)
