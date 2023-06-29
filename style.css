@@ -1,9 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
 *,
 body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   user-select: none;
+  --code-font-family: Roboto Mono, monospace;
+  --primary-font-family: Roboto, Noto Sans, Noto Sans JP, Noto Sans KR,
+    Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali,
+    sans-serif;
 }
 .container {
   --h: 60px;
@@ -159,7 +164,7 @@ span.closeMonth {
   background: rgba(240, 248, 191, 0.882);
   border-radius: 8px;
   cursor: pointer;
-  z-index: 99999999;
+  z-index: 999;
 }
 .preMonth:hover,
 span.closeMonth:hover {
@@ -338,9 +343,6 @@ li {
   color: #c16af8;
   display: none;
 }
-.lotteryPred {
-  padding: 12px 18px !important;
-}
 
 .topPred .numResults {
   animation: identifier 2s infinite linear;
@@ -452,21 +454,35 @@ body,
 }
 .lotteryPred {
   cursor: help !important;
+  padding: 12px 18px !important;
 }
+
 span.numResults {
   cursor: help;
 }
 
-.predictOutcome {
+.predictOutcomeWrap {
+  content: "";
   position: fixed;
+  inset: 0;
+  width: 100vw !important;
+  height: 100vh;
+  background: #00000039;
+  overflow: hidden;
+  display: none;
+  z-index: 9999;
+}
+
+.predictOutcome {
+  position: absolute;
   inset: 20% 25% auto 25%;
   width: 50% !important;
   height: 60%;
   background: #eee;
   border-radius: 12px;
   box-shadow: -2px 2px 10px 1px #c16af8;
-  z-index: 99999;
-  display: none;
+  box-shadow: 0 1px 60px 1px #c16af8;
+  z-index: 9999999;
 }
 
 .table-result {
@@ -507,6 +523,7 @@ tr {
   padding: 22px 26px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  border-radius: 0 12px 0 0;
 }
 .prizeCode .close:hover {
   background: #dddfe2;
