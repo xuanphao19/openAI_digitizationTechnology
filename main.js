@@ -11,11 +11,11 @@
     }
     return item;
   })(100);
-
-  const getDaysInMonth = function (mm, yy = 2023) {
+  // console.log(liEle);
+  const getDaysInMonth = (mm, yy = 2023) => {
     return new Date(yy, mm, 0).getDate();
   };
-  const createDay = function (sd, mon) {
+  const createDay = (sd, mon) => {
     var html = "";
     for (let j = 1; j <= sd; j++) {
       j = j < 10 ? `0${j}` : `${j}`;
@@ -24,7 +24,7 @@
     }
     return html;
   };
-  const createStatistic = function (ele) {
+  const createStatistic = (ele) => {
     if (ele && !$(ele).find("#statistical")[0]) {
       $(ele).append(`<li class="dayInfo" id="statistical">
           <span>Sum</span>
@@ -295,6 +295,7 @@
       const predictOutcome = (function (el, data) {
         if (el.className === "close") {
           $(".predictOutcomeWrap").hide(800);
+          document.body.style.overflow = "auto";
           return;
         }
         let k = loTo.length;
@@ -888,15 +889,38 @@ var dateResult = [
     },
 
     {
-      gdb: "75", // Dự đoán 08275 có về lô
+      gdb: "34", // Dự đoán 08275 ko về lô
       "25-06-2023":
-        "05,06,12,15,16,18,18,23,25,29,31,32,34,44,53,57,58,59,66,75,78,80,80,81,82,82,95",
+        "07, 06, 09,	12, 13, 16,	34, 35, 34, 33,	46, 44, 48, 46, 47, 43,	55,	68, 68, 62,	73, 78,	84, 89, 81, 87,	95",
     },
-    { gdb: "", "26-06-2023": "" },
-    { gdb: "", "27-06-2023": "" },
-    { gdb: "", "28-06-2023": "" },
-    { gdb: "", "29-06-2023": "" },
-    { gdb: "", "30-06-2023": "" },
+    {
+      gdb: "93", // Dự đoán 08500 ko về lô
+      "26-06-2023":
+        "02, 05, 28, 28, 21,	30,	42,	54, 51, 55, 50, 57,	69, 69, 60,	78, 79, 78, 71, 77,	87, 82,	93, 96, 99, 93, 95",
+    },
+    {
+      gdb: "95",
+      "27-06-2023":
+        "06, 07, 07, 09, 09,	13, 19,	23, 29, 24,	39, 36,	43, 44,	59,	62, 63, 61,	71, 74, 79,	81, 82,	95, 96, 97, 92",
+    },
+
+    {
+      gdb: "95",
+      "28-06-2023":
+        "06, 05, 06, 03,	18, 15,	20, 20,	32, 30,	49, 47, 48, 47,	68, 65, 61,	76,	89, 83, 89, 82,	95, 93, 94, 98, 96",
+    },
+
+    {
+      gdb: "20",
+      "29-06-2023":
+        "01,	16, 17, 13,	20, 26, 24,	36, 38, 35, 36,	44, 43, 47,	60, 68,	75, 76, 73,	83, 83, 87,	99, 90, 92, 92, 98",
+    },
+
+    {
+      gdb: "38", // Dự đoán 45238 ko về lô
+      "30-06-2023":
+        "01,05,06,15,16,21,21,23,30,32,34,38,44,45,59,66,68,69,69,72,72,74,77,83,89,96,98",
+    },
     { gdb: "", "31-06-2023": "" },
   ],
   [
@@ -1109,3 +1133,19 @@ var dateResult = [
     { gdb: "", "31-12-2023": "" },
   ],
 ];
+
+// Chú ý: phần tử muốn di chuyển phải có CSS  overflow: auto;
+//  $("html, body").animate({ scrollTop: $(el).offset().top - 50 }, 500);
+
+/* Cả vòng lặp forvà forEach()đều cho phép bạn lặp qua các mục của mảng, nhưng điểm khác biệt giữa chúng là vòng forlặp cho phép bạn thoát ra nếu một điều kiện nhất định được đáp ứng.
+Hãy xem xét đoạn mã sau:
+JavaScript
+Sao chép
+let numbers = [1, 2, -1, 4, 5];
+for(let i = 0; i< numbers.length; i++>) {
+  if (numbers[i] < 0) {
+    break;
+  }
+  console.log(numbers[i]);
+}
+Thêm break làm cho vòng lặp dừng lại ở một mục phủ định. Vòng forEach()lặp không thể làm điều đó. */

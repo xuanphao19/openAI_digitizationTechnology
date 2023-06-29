@@ -9,14 +9,17 @@ body {
   --primary-font-family: Roboto, Noto Sans, Noto Sans JP, Noto Sans KR,
     Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali,
     sans-serif;
+  --bd_bg: #eee;
+  --span_color: #ffdbdb;
+  --bg_radio: #00fd82;
+  scroll-behavior: smooth;
 }
 .container {
   --h: 60px;
   width: 100vw;
   height: 100vh;
   padding: 8px 32px 252px;
-  background-color: #fefefe;
-  overflow: auto;
+  background-color: var(--bd_bg);
 }
 /* .wrapResult {
   position: relative;
@@ -248,7 +251,7 @@ li {
   width: max-content;
   height: 700px;
   padding: 16px;
-  /* background: #000; */
+  background: #fefefe;
   box-shadow: 0 0.5px 1px 0.5px rgb(164, 103, 103);
   display: none;
 }
@@ -342,6 +345,9 @@ li {
   font-weight: 600;
   color: #c16af8;
   display: none;
+}
+.lotteryPred {
+  padding: 12px 18px !important;
 }
 
 .topPred .numResults {
@@ -441,12 +447,6 @@ li {
 .btn:hover {
   color: #4690da;
   border: 1px solid #4690da;
-}
-
-html,
-body,
-.container {
-  overflow: auto;
 }
 
 .topPred {
@@ -607,5 +607,62 @@ td {
   color: #ff00a3;
   user-select: text !important;
 }
+/* =============== */
 
+.Scroll_to_Top,
+.Scroll_to_Top::after,
+.Scroll_to_Top::before {
+  content: "";
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+  color: #ffffff;
+  border-radius: 999px;
+}
+.Scroll_to_Top::after {
+  --ScrollHeight: 200px;
+
+  padding-top: 10px;
+  text-align: center;
+  top: -30px;
+  width: 52px;
+  height: calc(var(--ScrollHeight) + 100px);
+
+  background: #00000000;
+  background-image: linear-gradient(
+    var(--bd_bg) var(--ScrollHeight),
+    rgba(0, 0, 0, 0)
+  ) !important;
+
+  overflow: hidden;
+  z-index: 99999 !important;
+  cursor: default !important;
+}
+a.Scroll_to_Top {
+  bottom: 30px !important;
+  right: 50px !important;
+  z-index: 999;
+}
+.Scroll_to_Top::before {
+  position: fixed;
+  right: 28px;
+  width: 50px;
+  height: 50px;
+  padding: 6px;
+
+  background: #0075ca;
+  background-repeat: no-repeat;
+  background-position: center top 8px;
+  background-image: url("https://user-images.githubusercontent.com/83102917/248461344-010efc94-54c3-4025-b26c-3b38297d8b3e.svg");
+  background-size: 80%;
+
+  z-index: 9999 !important;
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: pointer;
+}
 /* Xuyên thấu background bằng isolation: isolate; (Thẻ con có z-index: -1; thẻ cha có isolation: isolate; ==> sẽ nhìn thấy thẻ con */
