@@ -170,6 +170,7 @@
         }
       });
     }
+
     function frequencyStatistical() {
       let j = 0,
         statisticEle;
@@ -270,21 +271,25 @@
       }, dialableTime);
     }
     /* =================== */
+    var canplay = true;
+    const XSMB = new Audio("./audio/XSMB01.mp3");
 
     $(".result").on("click", function (e) {
       const eCl = e.target.className === "lotteryPred" ? true : false;
       const eId = $(e.target).parent()[0].id === curDate.mm ? true : false;
       if (loTo.length === 0) $(".prize")[1].style.background = "chartreuse";
       if (eCl && eId) {
+        if (canplay) XSMB.play();
+        canplay = false;
         $(".lotteryPredRs").show();
         $(".predictOutcomeWrap").show(1000);
         const scrollTo = $(".lotteryPred")
           .css("background", "rgb(216 243 254)")
           .position().left;
-        // console.log(scrollTo);
+
+        document.body.style.overflow = "hidden";
         $(".container").animate({ scrollLeft: scrollTo }, 500);
       }
-      document.body.style.overflow = "hidden";
     });
 
     $(".predictOutcome").on("click", function (e) {
@@ -294,6 +299,8 @@
       if (!canDial) return;
       const predictOutcome = (function (el, data) {
         if (el.className === "close") {
+          if (!canplay) XSMB.pause();
+          canplay = true;
           $(".predictOutcomeWrap").hide(800);
           document.body.style.overflow = "auto";
           return;
@@ -917,17 +924,28 @@ var dateResult = [
     },
 
     {
-      gdb: "38", // Dự đoán 45238 ko về lô
+      gdb: "51", // Dự đoán 45238 ko về lô
       "30-06-2023":
-        "01,05,06,15,16,21,21,23,30,32,34,38,44,45,59,66,68,69,69,72,72,74,77,83,89,96,98",
+        "02, 04, 07, 08,	19, 13, 19,	24, 22, 22,	30, 34,	51, 59,	62, 66, 69,	79, 79,	84, 89, 83, 89, 82,	91, 96, 92",
     },
-    { gdb: "", "31-06-2023": "" },
   ],
   [
     // July: "07",
-    { gdb: "", "01-07-2023": "" },
-    { gdb: "", "02-07-2023": "" },
-    { gdb: "", "03-07-2023": "" },
+    {
+      gdb: "46", // Dự đoán 38745 ko về lô
+      "01-07-2023":
+        "05,	18, 17, 19, 16, 17,	22,	31,	46, 42, 47,	55, 52, 52, 54,	60, 68,	73, 78, 72, 73, 71, 78,	82, 87,	91, 96",
+    },
+    {
+      gdb: "23", // Dự đoán 38303 ko về lô
+      "02-07-2023":
+        "02, 09,	14, 10, 12,	26, 27, 21, 23,	32,	69, 61, 65,	79, 71, 79, 75,	81, 83,	95, 99, 95, 96, 99, 99, 96",
+    },
+    {
+      gdb: "46",
+      "03-07-2023":
+        "02,04,05,05,05,06,12,14,15,17,24,35,39,45,46,46,47,61,63,66,71,80,81,84,89,89,96",
+    },
     { gdb: "", "04-07-2023": "" },
     { gdb: "", "05-07-2023": "" },
     { gdb: "", "06-07-2023": "" },
@@ -1148,4 +1166,5 @@ for(let i = 0; i< numbers.length; i++>) {
   }
   console.log(numbers[i]);
 }
-Thêm break làm cho vòng lặp dừng lại ở một mục phủ định. Vòng forEach()lặp không thể làm điều đó. */
+Thêm break làm cho vòng lặp dừng lại ở một mục phủ định. Vòng forEach()lặp không thể làm điều đó.  Vietnamese
+Dictionary Names: vi-vn*/
